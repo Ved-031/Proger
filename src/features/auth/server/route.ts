@@ -32,13 +32,6 @@ const app = new Hono()
 
                 const session = await account.createEmailPasswordSession(email, password);
 
-                try {
-                    const validatedSession = await account.getSession(session.$id);
-                    console.log("Validated session immediately:", validatedSession);
-                } catch (error) {
-                    console.error("Error validating session immediately after creation:", error);
-                }
-
                 setCookie(c, AUTH_COOKIE, session.secret, {
                     httpOnly: true,
                     secure: true,
