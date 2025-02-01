@@ -3,7 +3,6 @@ import { Query } from "node-appwrite";
 import { Workspace } from "./types";
 
 import { getMember } from "@/features/members/utils";
-import { MemberRole } from "@/features/members/types";
 
 import { createSessionClient } from "@/lib/appwrite";
 
@@ -52,10 +51,10 @@ export const getWorkspace = async (workspaceId: string) => {
 
     const user = await account.get();
 
-    // Checking if user is the member of the workspace and is admin
+    // Checking if user is the member of the workspace
     const member = await getMember({ databases, workspaceId, userId: user.$id });
     
-    if(!member || member.role !== MemberRole.ADMIN) return null;
+    if(!member) return null;
     
     const workspace = await databases.getDocument<Workspace>(
       DATABASE_ID,
@@ -69,3 +68,22 @@ export const getWorkspace = async (workspaceId: string) => {
     return null;
   }
 };
+
+export const getWorkspaceInfo = async (workspaceId: string) => {
+  try {
+    const { databases } = await createSessionClient();
+
+    const workspace = await databases.getDocument(
+      DATABASE_ID,
+      WORKSPACES_ID,
+      workspaceId
+    )
+
+    return {
+      name: workspace.name,
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+} 
