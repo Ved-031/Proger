@@ -15,6 +15,7 @@ import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 import { Workspace } from "../types";
 
 const app = new Hono()
+    // GET ALL WORKSPACES
     .get(
         '/',
         sessionMiddleware,
@@ -46,6 +47,7 @@ const app = new Hono()
             return c.json({ data: workspaces });
         }
     )
+    // CREATE WORKSPACE
     .post(
         '/',
         zValidator("form", createWorkspaceSchema),
@@ -100,6 +102,7 @@ const app = new Hono()
             return c.json({ data: workspace });
         }
     )
+    // UPDATE WORKSPACE
     .patch(
         '/:workspaceId',
         sessionMiddleware,
@@ -159,6 +162,7 @@ const app = new Hono()
             return c.json({ data: workspace });
         }
     )
+    // DELETE WORKSPACE
     .delete(
         "/:workspaceId",
         sessionMiddleware,
@@ -185,6 +189,7 @@ const app = new Hono()
             return c.json({ data: { $id: workspaceId } });
         }
     )
+    // RESET INVITE CODE
     .post(
         "/:workspaceId/reset-invite-code",
         sessionMiddleware,
@@ -216,6 +221,7 @@ const app = new Hono()
             return c.json({ data: workspace });
         }
     )
+    // JOIN WORKSPACE
     .post(
         "/:workspaceId/join",
         sessionMiddleware,
