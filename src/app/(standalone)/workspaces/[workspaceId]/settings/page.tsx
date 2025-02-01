@@ -24,7 +24,7 @@ const WorkspaceIdSettingsPage = async ({ params }: WorkspaceIdSettingsPageProps)
     }
 
     return (
-        <div className="w-full lg:max-w-xl">
+        <div className="w-full lg:max-w-6xl">
             <UpdateWorkspaceForm initialValues={workspace} />
         </div>
     )

@@ -135,8 +135,13 @@ const app = new Hono()
                 );
                 
                 uploadedImageUrl = `data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`;
-            } else {
+                
+            } else if(typeof image === "string") {
                 uploadedImageUrl = image;
+            }
+
+            if (typeof uploadedImageUrl !== 'string') {
+                throw new Error('Invalid imageUrl format or length');
             }
 
             const workspace = await databases.updateDocument(
@@ -145,7 +150,7 @@ const app = new Hono()
                 workspaceId,
                 {
                     name,
-                    imageUrl: uploadedImageUrl,
+                    ...(uploadedImageUrl && { imageUrl: uploadedImageUrl })
                 }
             )
 
@@ -176,6 +181,37 @@ const app = new Hono()
             )
 
             return c.json({ data: { $id: workspaceId } });
+        }
+    )
+    .post(
+        "/:workspaceId/reset-invite-code",
+        sessionMiddleware,
+        async (c) => {
+            const user = c.get("user");
+            const databases = c.get("databases");
+
+            const { workspaceId } = c.req.param();
+
+            const member = await getMember({ 
+                databases, 
+                workspaceId, 
+                userId: user.$id 
+            });
+
+            if(!member || member.role !== MemberRole.ADMIN){
+                return c.json({ error: "Unauthorized" }, 401);
+            }
+
+            const workspace = await databases.updateDocument(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId,
+                {
+                    inviteCode: generateInviteCode(6)
+                }
+            )
+
+            return c.json({ data: workspace });
         }
     )
 
