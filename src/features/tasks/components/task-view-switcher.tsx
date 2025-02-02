@@ -6,9 +6,11 @@ import { Loader, PlusIcon } from "lucide-react";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/data-table/data-table";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { columns } from "./columns";
 import { DataFilters } from "./data-filters";
 import { useGetTasks } from "../api/use-get-tasks";
 import { useTaskFilters } from "../hooks/use-task-filters";
@@ -40,7 +42,6 @@ export const TaskViewSwitcher = () => {
             className="flex-1 w-full border rounded-lg"
         >
             <div className="h-full flex flex-col overflow-auto p-4">
-                {/* TRIGGERS AND NEW BTN */}
                 <div className="flex flex-col gap-y-2 lg:flex-row justify-between items-center">
                     <TabsList className="w-full lg:w-auto">
                         <TabsTrigger value="table" className="h-8 w-full lg:w-auto">
@@ -59,10 +60,8 @@ export const TaskViewSwitcher = () => {
                     </Button>
                 </div>
                 <DottedSeparator className="my-4" />
-                {/* FILTERS */}
                 <DataFilters />
                 <DottedSeparator className="my-4" />
-                {/* TAB CONTENT */}
                 {
                     isLoadingTasks ? (
                         <div className="w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">
@@ -71,7 +70,7 @@ export const TaskViewSwitcher = () => {
                     ) : (
                         <>
                             <TabsContent value="table" className="mt-0">
-                                {JSON.stringify(tasks)}
+                                <DataTable columns={columns} data={tasks?.documents ?? []} />
                             </TabsContent>
                             <TabsContent value="kanban" className="mt-0">
                                 {JSON.stringify(tasks)}
