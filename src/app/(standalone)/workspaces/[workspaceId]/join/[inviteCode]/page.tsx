@@ -6,10 +6,7 @@ import { JoinWorkspaceForm } from "@/features/workspaces/components/join-workspa
 
 
 interface WorkspaceIdJoinPageProps {
-  params: {
-    workspaceId: string;
-    inviteCode: string;
-  }
+  params: Promise<{ workspaceId: string; inviteCode: string }>
 }
 
 const WorkspaceIdJoinPage = async ({ params }: WorkspaceIdJoinPageProps) => {

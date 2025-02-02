@@ -6,9 +6,7 @@ import { UpdateWorkspaceForm } from "@/features/workspaces/components/update-wor
 
 
 interface WorkspaceIdSettingsPageProps {
-    params: {
-        workspaceId: string;
-    }
+    params: Promise<{ workspaceId: string }>
 }
 
 const WorkspaceIdSettingsPage = async ({ params }: WorkspaceIdSettingsPageProps) => {

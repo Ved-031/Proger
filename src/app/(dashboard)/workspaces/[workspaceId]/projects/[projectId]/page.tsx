@@ -10,9 +10,7 @@ import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
 
 interface ProjectIdPageProps {
-    params: {
-        projectId: string;
-    }
+    params: Promise<{ projectId: string }>
 }
 
 const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {

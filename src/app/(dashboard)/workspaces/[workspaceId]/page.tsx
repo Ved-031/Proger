@@ -4,9 +4,7 @@ import { getCurrent } from "@/features/auth/queries";
 
 
 interface WorkspaceIdPageProps {
-  params: {
-    workspaceId: string
-  }
+  params: Promise<{ workspaceId: string }>
 }
 
 const WorkspaceIdPage = async ({ params }: WorkspaceIdPageProps) => {
