@@ -179,6 +179,7 @@ export const UpdateProjectForm = ({ onCancel, initialValues }: UpdateProjectForm
                                                                     className="w-fit mt-2"
                                                                     onClick={() => {
                                                                         field.onChange(null);
+                                                                        form.setValue("image", "");
                                                                         if (inputRef.current) {
                                                                             inputRef.current.value = "";
                                                                         }
