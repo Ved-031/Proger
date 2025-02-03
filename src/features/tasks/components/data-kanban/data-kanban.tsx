@@ -4,8 +4,8 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
-import { KanbanCard } from "./kanban-card";
-import { Task, TaskStatus } from "../types";
+import { KanbanCard } from "./kanban-card"; 
+import { Task, TaskStatus } from "../../types";
 import { KanbanColumnHeader } from "./kanban-column-header";
 
 

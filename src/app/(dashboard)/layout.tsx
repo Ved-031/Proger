@@ -1,8 +1,8 @@
 import { Navbar } from "@/components/navbar";
 import { Sidebar } from "@/components/sidebar";
 
-import { CreateTaskModal } from "@/features/tasks/components/create-task-modal";
-import { UpdateTaskModal } from "@/features/tasks/components/update-task-modal";
+import { CreateTaskModal } from "@/features/tasks/components/create/create-task-modal"; 
+import { UpdateTaskModal } from "@/features/tasks/components/update/update-task-modal"; 
 import { CreateProjectModal } from "@/features/projects/components/create-project-modal";
 import { CreateWorkspaceModal } from "@/features/workspaces/components/create-workspace-modal";
 

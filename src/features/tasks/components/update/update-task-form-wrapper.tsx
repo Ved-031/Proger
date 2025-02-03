@@ -8,8 +8,8 @@ import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
-import { useGetTask } from "../api/use-get-task";
-import { UpdateTaskForm } from "./update-task-form";
+import { useGetTask } from "../../api/use-get-task";
+import { UpdateTaskForm } from "./update-task-form"; 
 
 interface UpdateTaskFormWrapperProps {
     onCancel?: () => void;

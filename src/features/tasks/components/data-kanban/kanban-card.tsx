@@ -1,10 +1,13 @@
 import { MoreHorizontal } from "lucide-react";
-import { Task } from "../types";
-import { TaskActions } from "./task-actions";
+
 import { DottedSeparator } from "@/components/dotted-separator";
+
 import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { TaskDate } from "./task-date";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+
+import { Task } from "../../types";
+import { TaskDate } from "../task-date";
+import { TaskActions } from "../task-actions";
 
 interface KanbanCardProps {
     task: Task;
@@ -16,7 +19,7 @@ export const KanbanCard = ({ task }: KanbanCardProps) => {
             <div className="flex items-start justify-between gap-x-2">
                 <p className="text-sm line-clamp-2">{task.name}</p>
                 <TaskActions id={task.$id} projectId={task.projectId}>
-                    <MoreHorizontal className="size-[18px] stroke-1 shrink-0 text-neutral-700 hover:opacity-75 transition" />
+                    <MoreHorizontal className="size-[18px] stroke-1 shrink-0 text-neutral-700 hover:opacity-75 transition cursor-pointer" />
                 </TaskActions>
             </div>
             <DottedSeparator />

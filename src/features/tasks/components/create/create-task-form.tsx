@@ -1,6 +1,7 @@
 "use client";
 
 import { z } from "zod";
+import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 // import { useRouter } from "next/navigation";
@@ -20,10 +21,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormField, FormItem, FormMessage, FormLabel, FormControl } from "@/components/ui/form";
 import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@/components/ui/select";
 
-import { TaskStatus } from "../types";
-import { createTaskSchema } from "../schemas";
-import { useCreateTask } from "../api/use-create-task";
-import { useCreateTaskModal } from "../hooks/use-create-task-modal";
+import { TaskStatus } from "../../types"; 
+import { createTaskSchema } from "../../schemas"; 
+import { useCreateTask } from "../../api/use-create-task"; 
+import { useCreateTaskModal } from "../../hooks/use-create-task-modal"; 
 
 interface CreateTaskFormProps {
     onCancel?: () => void;
@@ -35,7 +36,7 @@ export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: Crea
 
     // const router = useRouter();
 
-    const { status, setStatus } = useCreateTaskModal();
+    const { status } = useCreateTaskModal();
 
     const workspaceId = useWorkspaceId();
 
@@ -47,6 +48,12 @@ export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: Crea
             workspaceId
         }
     })
+
+    useEffect(() => {
+        if(status){
+            form.setValue("status", status as TaskStatus);
+        }
+    }, [status, form])
 
     const onSubmit = (values: z.infer<typeof createTaskSchema>) => {
         mutate({ json: { ...values, workspaceId } }, {
@@ -145,8 +152,8 @@ export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: Crea
                                     <FormItem>
                                         <FormLabel>Status</FormLabel>
                                         <Select
-                                            defaultValue={status ? status : field.value}
-                                            onValueChange={status ? (value) => setStatus(value as TaskStatus) : field.onChange}
+                                            defaultValue={status || field.value}
+                                            onValueChange={field.onChange}
                                         >
                                             <FormControl>
                                                 <SelectTrigger>

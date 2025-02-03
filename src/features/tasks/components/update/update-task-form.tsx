@@ -20,9 +20,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormField, FormItem, FormMessage, FormLabel, FormControl } from "@/components/ui/form";
 import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@/components/ui/select";
 
-import { Task, TaskStatus } from "../types";
-import { createTaskSchema } from "../schemas";
-import { useUpdateTask } from "../api/use-update-task";
+import { Task, TaskStatus } from "../../types";
+import { createTaskSchema } from "../../schemas";
+import { useUpdateTask } from "../../api/use-update-task"; 
 
 interface UpdateTaskFormProps {
     onCancel?: () => void;
