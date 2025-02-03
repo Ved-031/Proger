@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
-
 import { zValidator } from "@hono/zod-validator";
+
 import { getMember } from "@/features/members/utils";
 import { MemberRole } from "@/features/members/types";
 
@@ -11,8 +11,8 @@ import { sessionMiddleware } from "@/lib/session-middleware";
 
 import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 
-import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 import { Workspace } from "../types";
+import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 
 const app = new Hono()
     // GET ALL WORKSPACES
@@ -45,6 +45,59 @@ const app = new Hono()
             )
 
             return c.json({ data: workspaces });
+        }
+    )
+    // GET SINGLE WORKSPACE
+    .get(
+        "/:workspaceId",
+        sessionMiddleware,
+        async (c) => {
+            const user = c.get("user");
+            const databases = c.get("databases");
+
+            const { workspaceId } = c.req.param();
+            
+            const member = await getMember({
+                databases,
+                workspaceId,
+                userId: user.$id
+            })
+
+            if(!member){
+                return c.json({ error: "Unauthorized" }, 401);
+            }
+
+            const workspace = await databases.getDocument<Workspace>(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId
+            )
+
+            return c.json({ data: workspace });
+        }
+    )
+    // GET WORKSPACE INFO (JOIN)
+    .get(
+        "/:workspaceId/info",
+        sessionMiddleware,
+        async (c) => {
+            const databases = c.get("databases");
+
+            const { workspaceId } = c.req.param();
+
+            const workspace = await databases.getDocument<Workspace>(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId
+            )
+
+            return c.json({ 
+                data: { 
+                    $id: workspace.$id, 
+                    name: workspace.name, 
+                    image: workspace.imageUrl 
+                } 
+            });
         }
     )
     // CREATE WORKSPACE
@@ -143,10 +196,6 @@ const app = new Hono()
                 
             } else if(typeof image === "string") {
                 uploadedImageUrl = image;
-            }
-
-            if (typeof uploadedImageUrl !== 'string') {
-                throw new Error('Invalid imageUrl format or length');
             }
 
             const workspace = await databases.updateDocument(

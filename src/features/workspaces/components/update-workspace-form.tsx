@@ -90,10 +90,6 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: UpdateWorkspace
         mutate({
             form: finalValues,
             param: { workspaceId: initialValues.$id }
-        }, {
-            onSuccess: () => {
-                form.reset();
-            }
         })
     }
 
@@ -122,7 +118,7 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: UpdateWorkspace
                 {/* UPDATING FORM */}
                 <Card className="w-[52%] h-full border-none shadow-none">
                     <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
-                        <Button size="sm" variant="secondary" onClick={onCancel ? onCancel : () => router.back()}>
+                        <Button size="sm" variant="secondary" onClick={onCancel ? onCancel : () => router.push(`/workspaces/${initialValues.$id}`)}>
                             <ArrowLeftIcon className="size-4" />
                             Back
                         </Button>

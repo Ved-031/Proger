@@ -34,13 +34,13 @@ const app = new Hono()
 
                 setCookie(c, AUTH_COOKIE, session.secret, {
                     httpOnly: true,
-                    secure: true,
-                    sameSite: 'strict',
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: 'Lax',
                     maxAge: 60 * 60 * 24 * 30,
                     path: '/',
                 })
 
-                return c.json({ success: true });
+                return c.json({ success: true, userId: session.userId });
             }catch(error){
                 console.log(error);
                 return c.json({ error: "Login failed" }, 500);

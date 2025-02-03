@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 
+import { useWorkspaceId } from "../hooks/use-workspace-id";
 import { useJoinWorkspace } from "../api/use-join-workspace";
 
 
@@ -14,13 +15,15 @@ interface JoinWorkspaceFormProps {
     initialValues: {
         name: string;
     },
-    code: string;
-    workspaceId: string;
 }
 
-export const JoinWorkspaceForm = ({ initialValues, code, workspaceId }: JoinWorkspaceFormProps) => {
+export const JoinWorkspaceForm = ({ initialValues }: JoinWorkspaceFormProps) => {
 
     const router = useRouter();
+    const params = useParams();
+
+    const code = params?.inviteCode as string;
+    const workspaceId = useWorkspaceId();
 
     const { mutate, isPending } = useJoinWorkspace();
 
