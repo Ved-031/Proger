@@ -23,6 +23,7 @@ import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@
 import { TaskStatus } from "../types";
 import { createTaskSchema } from "../schemas";
 import { useCreateTask } from "../api/use-create-task";
+import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 
 interface CreateTaskFormProps {
     onCancel?: () => void;
@@ -33,6 +34,8 @@ interface CreateTaskFormProps {
 export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: CreateTaskFormProps) => {
 
     // const router = useRouter();
+
+    const { status, setStatus } = useCreateTaskModal();
 
     const workspaceId = useWorkspaceId();
 
@@ -142,8 +145,8 @@ export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: Crea
                                     <FormItem>
                                         <FormLabel>Status</FormLabel>
                                         <Select
-                                            defaultValue={field.value}
-                                            onValueChange={field.onChange}
+                                            defaultValue={status ? status : field.value}
+                                            onValueChange={status ? (value) => setStatus(value as TaskStatus) : field.onChange}
                                         >
                                             <FormControl>
                                                 <SelectTrigger>
