@@ -16,6 +16,7 @@ import { createTaskSchema } from "../schemas";
 
 
 const app = new Hono()
+    // All Tasks
     .get(
         "/",
         sessionMiddleware,
@@ -122,6 +123,7 @@ const app = new Hono()
             });
         }
     )
+    // Single Task
     .get(
         "/:taskId",
         sessionMiddleware,
@@ -177,6 +179,7 @@ const app = new Hono()
             });
         }
     )
+    // Create Task
     .post(
         "/",
         sessionMiddleware,
@@ -310,6 +313,7 @@ const app = new Hono()
             return c.json({ data: task });
         }
     )
+    // Task Position Update
     .post(
         "/bulk-update",
         sessionMiddleware,
