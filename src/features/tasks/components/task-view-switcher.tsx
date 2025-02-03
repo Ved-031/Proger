@@ -13,12 +13,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { columns } from "./columns";
 import { TaskStatus } from "../types";
-import { DataKanban } from "./data-kanban";
 import { DataFilters } from "./data-filters";
 import { useGetTasks } from "../api/use-get-tasks";
+import { DataKanban } from "./data-kanban/data-kanban";
 import { useTaskFilters } from "../hooks/use-task-filters";
-import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
+import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 
 export const TaskViewSwitcher = () => {
 

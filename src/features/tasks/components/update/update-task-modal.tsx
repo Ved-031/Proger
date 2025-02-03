@@ -3,7 +3,7 @@
 import { ResponsiveModal } from "@/components/responsive-modal";
 
 import { UpdateTaskFormWrapper } from "./update-task-form-wrapper";
-import { useUpdateTaskModal } from "../hooks/use-update-task-modal";
+import { useUpdateTaskModal } from "../../hooks/use-update-task-modal";
 
 export const UpdateTaskModal = () => {
 
