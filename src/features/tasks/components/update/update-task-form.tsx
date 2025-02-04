@@ -54,7 +54,6 @@ export const UpdateTaskForm = ({ onCancel, projectOptions, memberOptions, initia
         }, {
             onSuccess: () => {
                 form.reset();
-                // TODO: REDIRECT
                 onCancel?.();
             }
         })

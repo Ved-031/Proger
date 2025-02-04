@@ -10,8 +10,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "JIRA",
+  title: "PROGER",
   description: "JIRA Clone",
+  icons: {
+    icon: '/small_logo.png',
+  }
 };
 
 export default function RootLayout({

@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
+import { Member } from "@/features/members/types";
 import { Project } from "@/features/projects/types";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
@@ -14,7 +15,7 @@ interface EventCardProps {
     title: string;
     status: TaskStatus;
     project: Project;
-    assignee: any;
+    assignee: Member;
 }
 
 const statusColorMap: Record<TaskStatus, string> = {

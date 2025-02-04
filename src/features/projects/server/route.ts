@@ -11,7 +11,7 @@ import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 
 import { Project } from "../types";
 import { createProjectSchema, updateProjectSchema } from "../schemas";
-import { TaskStatus } from "@/features/tasks/types";
+import { Task, TaskStatus } from "@/features/tasks/types";
 
 const app = new Hono()
   .get(
@@ -222,8 +222,26 @@ const app = new Hono()
         if(!member){
             return c.json({ error: "Unauthorized" }, 401);
         }
+        
+        const tasks = await databases.listDocuments<Task>(
+          DATABASE_ID,
+          TASKS_ID,
+          [
+            Query.equal("projectId", projectId),
+          ]
+        )
 
-        // TODO: Delete tasks
+        const taskIds = tasks.documents.map((task) => task.$id);
+
+        await Promise.all(
+          taskIds.map(async (taskId) => {
+            await databases.deleteDocument(
+              DATABASE_ID,
+              TASKS_ID,
+              taskId
+            )
+          })
+        )
 
         await databases.deleteDocument(
             DATABASE_ID,

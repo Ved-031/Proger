@@ -8,6 +8,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DottedSeparator } from "@/components/dotted-separator";
@@ -122,6 +124,7 @@ export const SignUpCard = () => {
             {/* AUTH BUTTONS */}
             <CardContent className="p-7 flex flex-col gap-y-4">
                 <Button
+                    onClick={() => signUpWithGoogle()}
                     disabled={isPending}
                     variant="secondary"
                     size="lg"
@@ -131,6 +134,7 @@ export const SignUpCard = () => {
                     Login with Google
                 </Button>
                 <Button
+                    onClick={() => signUpWithGithub()}
                     disabled={isPending}
                     variant="secondary"
                     size="lg"

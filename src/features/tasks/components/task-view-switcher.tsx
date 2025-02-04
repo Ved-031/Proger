@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useQueryState } from "nuqs";
 import { Loader, PlusIcon } from "lucide-react";
 
+import { useProjectId } from "@/features/projects/hooks/use-project-id";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,8 @@ export const TaskViewSwitcher = ({ hideProjectFilter }: TaskViewSwitcherProps) =
     });
 
     const workspaceId = useWorkspaceId();
+    const paramProjectId = useProjectId();
+
     const { open } = useCreateTaskModal();
 
     const { mutate: bulkUpdate } = useBulkUpdateTasks();
@@ -43,7 +46,7 @@ export const TaskViewSwitcher = ({ hideProjectFilter }: TaskViewSwitcherProps) =
         workspaceId, 
         status, 
         assigneeId, 
-        projectId, 
+        projectId: paramProjectId || projectId, 
         dueDate 
     });
 

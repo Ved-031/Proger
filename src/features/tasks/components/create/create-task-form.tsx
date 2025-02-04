@@ -59,7 +59,6 @@ export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: Crea
         mutate({ json: { ...values, workspaceId } }, {
             onSuccess: () => {
                 form.reset();
-                // TODO: REDIRECT
                 onCancel?.();
             }
         })
