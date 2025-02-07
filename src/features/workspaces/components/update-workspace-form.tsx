@@ -116,7 +116,7 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: UpdateWorkspace
             <ResetDialog />
             <div className="flex flex-col lg:flex-row items-start gap-5 w-full">
                 {/* UPDATING FORM */}
-                <Card className="w-[52%] h-full border-none shadow-none">
+                <Card className="w-full lg:w-[52%] h-full border-none shadow-none">
                     <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
                         <Button size="sm" variant="secondary" onClick={onCancel ? onCancel : () => router.push(`/workspaces/${initialValues.$id}`)}>
                             <ArrowLeftIcon className="size-4" />
@@ -258,7 +258,7 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: UpdateWorkspace
                         </Form>
                     </CardContent>
                 </Card>
-                <div className="flex flex-col items-start gap-y-4 w-[48%]">
+                <div className="flex flex-col items-start gap-y-4 w-full lg:w-[48%]">
                     {/* RESET INVITE CODE */}
                     <Card className="w-full h-full border-none shadow-none">
                         <CardContent className="p-7">
